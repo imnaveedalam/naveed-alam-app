@@ -3,19 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07140f;
+  --foreground: #f6f1e7;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #f0771a;
+  color: #07140f;
+}
+
+.leaflet-container {
+  z-index: 0;
+  background: #0c1f17;
+  font-family: inherit;
+}
+
+.leaflet-container img {
+  max-width: none;
 }
