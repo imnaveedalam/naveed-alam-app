@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 async function loadTrips(): Promise<
   | { status: "ready"; trips: TripRow[] }
@@ -37,35 +38,46 @@ export default async function DistancePage() {
   const result = await loadTrips();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ember-400">
-        The ride
-      </p>
-      <h1 className="mt-3 text-4xl font-semibold tracking-tight text-sand-50 sm:text-5xl">
-        Distance calculator
-      </h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand-300">
-        Pick one trip from the database, or add every ride together.
+    <div className="page-shell">
+      <p className="kicker">The ride</p>
+      <h1 className="page-title">Distance calculator</h1>
+      <p className="lede">
+        The total of every ride stays on screen. Choose one trip to see its own
+        distance.
       </p>
 
       {result.status === "missing" ? (
-        <p className="mt-10 rounded-3xl border border-white/10 bg-forest-800 px-6 py-5 text-sm leading-relaxed text-sand-300">
-          Add the Supabase URL and anon key to .env.local, then restart the dev
-          server.
-        </p>
+        <div role="status" className="panel mt-10 px-6 py-5">
+          <p className="kicker">Setup needed</p>
+          <p className="mt-2 text-sm leading-relaxed text-sand-300">
+            Add the Supabase URL and anon key to .env.local, then restart the
+            dev server.
+          </p>
+        </div>
       ) : null}
 
       {result.status === "error" ? (
-        <p className="mt-10 rounded-3xl border border-white/10 bg-forest-800 px-6 py-5 text-sm leading-relaxed text-sand-300">
-          Trips could not be loaded, so the calculator has nothing to add up.
-        </p>
+        <div role="alert" className="panel mt-10 border-ember-500/50 px-6 py-5">
+          <p className="kicker">Could not load trips</p>
+          <p className="mt-2 text-sm leading-relaxed text-sand-300">
+            Trips could not be loaded, so the calculator has nothing to add up.
+          </p>
+        </div>
       ) : null}
 
       {result.status === "ready" && result.trips.length === 0 ? (
-        <p className="mt-10 rounded-3xl border border-white/10 bg-forest-800 px-6 py-5 text-sm leading-relaxed text-sand-300">
-          No trips yet. Add rows to the trips table and their distances will
-          show up here.
-        </p>
+        <div
+          role="status"
+          className="panel mt-10 border-dashed border-sand-400/35 px-6 py-5"
+        >
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-sand-300">
+            Empty table
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-sand-300">
+            No trips yet. Add rows to the trips table and their distances will
+            show up here.
+          </p>
+        </div>
       ) : null}
 
       {result.status === "ready" && result.trips.length > 0 ? (

@@ -51,8 +51,7 @@ function validate(values: QuestionInput): FieldErrors {
   return errors;
 }
 
-const fieldClassName =
-  "mt-2 w-full rounded-xl border bg-forest-950 px-4 py-3 text-sm text-sand-50 outline-none ring-ember-500 placeholder:text-sand-400 focus:ring-2";
+const fieldClassName = "field";
 
 export function QuestionForm() {
   const [values, setValues] = useState<QuestionInput>(emptyValues);
@@ -125,10 +124,7 @@ export function QuestionForm() {
 
   if (sent) {
     return (
-      <div
-        className="rounded-3xl border border-ember-500/40 bg-forest-800 p-6 sm:p-8"
-        role="status"
-      >
+      <div className="panel border-ember-500/45 p-6 sm:p-8" role="status">
         <h2
           ref={confirmationRef}
           tabIndex={-1}
@@ -136,7 +132,7 @@ export function QuestionForm() {
         >
           Question received
         </h2>
-        <p className="mt-3 text-sm leading-relaxed text-sand-300">
+        <p className="mt-3.5 text-sm leading-relaxed text-sand-300">
           Thanks for writing. Your question has been received.
         </p>
         <button
@@ -147,7 +143,7 @@ export function QuestionForm() {
             setFormError(null);
             setSent(false);
           }}
-          className="mt-6 rounded-full bg-ember-500 px-5 py-2.5 text-sm font-semibold text-forest-950 transition-colors hover:bg-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300"
+          className="btn-ember mt-7"
         >
           Ask another
         </button>
@@ -156,11 +152,7 @@ export function QuestionForm() {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      noValidate
-      className="rounded-3xl border border-white/10 bg-forest-800 p-6 sm:p-8"
-    >
+    <form onSubmit={onSubmit} noValidate className="panel p-6 sm:p-8">
       <div className="space-y-5">
         <div>
           <label className="block text-sm font-medium text-sand-100" htmlFor="name">
@@ -177,9 +169,7 @@ export function QuestionForm() {
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "name-error" : undefined}
             onChange={(event) => updateField("name", event.target.value)}
-            className={`${fieldClassName} ${
-              errors.name ? "border-red-400" : "border-white/10"
-            }`}
+            className={fieldClassName}
             placeholder="Your name"
           />
           {errors.name ? (
@@ -204,9 +194,7 @@ export function QuestionForm() {
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "email-error" : undefined}
             onChange={(event) => updateField("email", event.target.value)}
-            className={`${fieldClassName} ${
-              errors.email ? "border-red-400" : "border-white/10"
-            }`}
+            className={fieldClassName}
             placeholder="you@email.com"
           />
           {errors.email ? (
@@ -233,9 +221,7 @@ export function QuestionForm() {
             aria-invalid={Boolean(errors.question)}
             aria-describedby={errors.question ? "question-error" : undefined}
             onChange={(event) => updateField("question", event.target.value)}
-            className={`${fieldClassName} resize-y ${
-              errors.question ? "border-red-400" : "border-white/10"
-            }`}
+            className={`${fieldClassName} resize-y`}
             placeholder="Where should I start?"
           />
           {errors.question ? (
@@ -252,11 +238,7 @@ export function QuestionForm() {
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={saving}
-        className="mt-6 inline-flex rounded-full bg-ember-500 px-5 py-2.5 text-sm font-semibold text-forest-950 transition-colors hover:bg-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300 disabled:cursor-not-allowed disabled:opacity-60"
-      >
+      <button type="submit" disabled={saving} className="btn-ember mt-7">
         {saving ? "Sending..." : "Send question"}
       </button>
     </form>

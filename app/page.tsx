@@ -40,60 +40,60 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(240,119,26,0.24),transparent_32%),radial-gradient(circle_at_88%_8%,rgba(45,106,79,0.5),transparent_40%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_12%_20%,rgba(240,119,26,0.26),transparent_36%),radial-gradient(ellipse_at_90%_-5%,rgba(45,106,79,0.5),transparent_44%),linear-gradient(180deg,rgba(7,20,15,0.15),rgba(7,20,15,0.55)_78%,rgba(7,20,15,0.95))]"
         />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:py-28">
-          <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-ember-400">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(17rem,0.7fr)] lg:gap-14 lg:py-24">
+          <div className="max-w-2xl">
+            <p className="kicker inline-flex items-center gap-2">
               <Motorbike className="h-4 w-4" aria-hidden="true" />
               Pakistan · Motorcycle travel
             </p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-tight text-sand-50 sm:text-7xl">
+            <h1 className="mt-5 text-[2.75rem] font-semibold leading-[0.98] tracking-tight text-sand-50 sm:text-6xl lg:text-7xl">
               Naveed Alam
             </h1>
-            <p className="mt-4 max-w-xl text-xl font-medium text-ember-300 sm:text-2xl">
+            <p className="mt-5 max-w-xl text-xl font-medium leading-snug text-ember-300 sm:text-2xl">
               Exploring Pakistan on Two Wheels
             </p>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-sand-300 sm:text-lg">
               A motorcycle traveler who has covered Balochistan, Sindh, Punjab,
               KPK, Azad Kashmir, and Gilgit Baltistan in the last 3 years.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/trips"
-                className="inline-flex items-center justify-center rounded-full bg-ember-500 px-6 py-3 text-sm font-semibold text-forest-950 transition-colors hover:bg-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300"
-              >
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/trips" className="btn-ember">
                 View Trips
               </Link>
-              <Link
-                href="/ask-question"
-                className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-sand-50 transition-colors hover:border-ember-500 hover:text-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
-              >
+              <Link href="/ask-question" className="btn-ghost">
                 Ask a Question
               </Link>
             </div>
           </div>
 
-          <aside className="rounded-3xl border border-white/10 bg-forest-800/80 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.25)] sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ember-400">
-              The ride so far
-            </p>
-            <dl className="mt-6 space-y-5">
+          <aside className="panel overflow-hidden p-6 sm:p-8">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-12 -top-14 h-44 w-44 rounded-full border border-ember-400/25"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-3 -top-5 h-24 w-24 rounded-full border border-white/10"
+            />
+            <p className="kicker relative">The ride so far</p>
+            <dl className="relative mt-7 space-y-5">
               <div className="border-b border-white/10 pb-5">
                 <dt className="text-sm text-sand-300">On the road</dt>
-                <dd className="mt-1 text-3xl font-semibold tracking-tight text-sand-50">
+                <dd className="mt-1.5 text-3xl font-semibold tracking-tight text-sand-50">
                   3 years
                 </dd>
               </div>
               <div className="border-b border-white/10 pb-5">
                 <dt className="text-sm text-sand-300">Places covered</dt>
-                <dd className="mt-1 text-3xl font-semibold tracking-tight text-sand-50">
+                <dd className="mt-1.5 text-3xl font-semibold tracking-tight text-sand-50">
                   6
                 </dd>
               </div>
               <div>
                 <dt className="text-sm text-sand-300">How he travels</dt>
-                <dd className="mt-1 text-3xl font-semibold tracking-tight text-sand-50">
+                <dd className="mt-1.5 text-3xl font-semibold tracking-tight text-sand-50">
                   Two wheels
                 </dd>
               </div>
@@ -102,15 +102,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6" aria-labelledby="provinces-heading">
+      <section
+        className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20 lg:pb-24"
+        aria-labelledby="provinces-heading"
+      >
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ember-400">
-            The map
-          </p>
-          <h2
-            id="provinces-heading"
-            className="mt-3 text-3xl font-semibold tracking-tight text-sand-50 sm:text-4xl"
-          >
+          <p className="kicker">The map</p>
+          <h2 id="provinces-heading" className="section-title">
             Provinces covered
           </h2>
           <p className="mt-4 text-base leading-relaxed text-sand-300">
@@ -119,19 +117,16 @@ export default function Home() {
           </p>
         </div>
 
-        <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {provinces.map((province, index) => (
-            <li
-              key={province.name}
-              className="rounded-3xl border border-white/10 bg-forest-800/80 p-6"
-            >
-              <span className="text-sm font-semibold tracking-[0.16em] text-ember-400">
+            <li key={province.name} className="panel panel-hover p-6 sm:p-7">
+              <span className="text-sm font-semibold tracking-[0.18em] text-ember-400">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-xl font-semibold text-sand-50">
+              <h3 className="mt-3.5 text-xl font-semibold tracking-tight text-sand-50">
                 {province.name}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-sand-300">
+              <p className="mt-2.5 text-sm leading-relaxed text-sand-300">
                 {province.detail}
               </p>
             </li>

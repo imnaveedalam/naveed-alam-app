@@ -31,6 +31,14 @@ const config: Config = {
           400: "#a89f8e",
         },
       },
+      boxShadow: {
+        card: "0 18px 40px -28px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+        lift: "0 28px 48px -22px rgba(0, 0, 0, 0.92), 0 16px 34px -18px rgba(240, 119, 26, 0.42)",
+        soft: "0 10px 28px -20px rgba(0, 0, 0, 0.75)",
+      },
+      transitionTimingFunction: {
+        out: "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
     },
   },
   plugins: [],

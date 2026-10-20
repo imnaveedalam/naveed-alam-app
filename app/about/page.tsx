@@ -12,19 +12,15 @@ const previewPhotos = galleryPhotos.slice(0, 3);
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ember-400">
-        The traveler
-      </p>
-      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-sand-50 sm:text-5xl">
-        About Naveed Alam
-      </h1>
-      <p className="mt-5 max-w-2xl text-lg leading-relaxed text-sand-100">
+    <div className="page-shell">
+      <p className="kicker">The traveler</p>
+      <h1 className="page-title max-w-3xl">About Naveed Alam</h1>
+      <p className="mt-6 max-w-2xl border-l-2 border-ember-500 pl-4 text-lg leading-relaxed text-sand-100 sm:pl-5">
         A motorcycle traveler who has spent the last three years riding across
         Pakistan.
       </p>
 
-      <div className="mt-8 max-w-2xl space-y-4 text-base leading-relaxed text-sand-300">
+      <div className="mt-9 max-w-2xl space-y-5 text-base leading-relaxed text-sand-300">
         <p>
           The bike is how Naveed Alam sees the country. Not the fast way
           through it, and not only the famous viewpoints. The point is the road
@@ -52,55 +48,43 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <Link
-          href="/trips"
-          className="inline-flex items-center justify-center rounded-full bg-ember-500 px-5 py-3 text-sm font-semibold text-forest-950 transition-colors hover:bg-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300"
-        >
+      <div className="mt-9 flex max-w-2xl flex-col gap-3 sm:flex-row sm:items-center">
+        <Link href="/trips" className="btn-ember">
           View trips
         </Link>
-        <Link
-          href="/gallery"
-          className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-sand-50 transition-colors hover:border-ember-500 hover:text-ember-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
-        >
+        <Link href="/gallery" className="btn-ghost">
           Open the gallery
         </Link>
       </div>
 
-      <section className="mt-16" aria-labelledby="about-gallery-heading">
-        <div className="flex items-end justify-between gap-4">
+      <section className="mt-16 sm:mt-20" aria-labelledby="about-gallery-heading">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ember-400">
-              From the road
-            </p>
-            <h2
-              id="about-gallery-heading"
-              className="mt-3 text-3xl font-semibold tracking-tight text-sand-50"
-            >
+            <p className="kicker">From the road</p>
+            <h2 id="about-gallery-heading" className="section-title">
               Gallery
             </h2>
           </div>
-          <Link
-            href="/gallery"
-            className="shrink-0 text-sm font-medium text-ember-400 hover:text-ember-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
-          >
+          <Link href="/gallery" className="text-link w-fit text-sm">
             See all
           </Link>
         </div>
 
-        <ul className="mt-6 grid gap-4 sm:grid-cols-3">
+        <ul className="mt-7 grid gap-4 sm:grid-cols-3 sm:gap-5">
           {previewPhotos.map((photo) => (
             <li key={photo.id}>
               <Link
                 href="/gallery"
-                className="group block overflow-hidden rounded-3xl border border-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
+                className="panel panel-hover group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
               >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                />
-                <span className="block bg-forest-800 px-4 py-3 text-sm text-sand-100">
+                <span className="block overflow-hidden rounded-t-2xl">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="aspect-[4/3] w-full object-cover transition duration-500 ease-out group-hover:scale-[1.05]"
+                  />
+                </span>
+                <span className="block border-t border-white/10 px-4 py-4 text-sm font-medium text-sand-100">
                   {photo.place}
                 </span>
               </Link>

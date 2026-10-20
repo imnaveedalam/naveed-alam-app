@@ -23,5 +23,10 @@ export function createSupabaseClient(): SupabaseClient | null {
     return null;
   }
 
-  return createClient(url, key);
+  return createClient(url, key, {
+    global: {
+      // Next.js 14 caches fetch() for a year even on force-dynamic routes.
+      fetch: (input, init) => fetch(input, { ...init, cache: "no-store" }),
+    },
+  });
 }
