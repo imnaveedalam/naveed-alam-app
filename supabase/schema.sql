@@ -75,6 +75,96 @@ for select
 to authenticated
 using ((auth.jwt() ->> 'email') = 'you@example.com');
 
+-- Public trip photo gallery (files in Storage, optional captions in this table).
+create table if not exists public.gallery_photos (
+  id uuid primary key default gen_random_uuid(),
+  storage_path text not null unique,
+  place text not null default '',
+  caption text not null default '',
+  created_at timestamptz not null default now()
+);
+
+alter table public.gallery_photos enable row level security;
+
+grant select on public.gallery_photos to anon, authenticated;
+grant insert, delete on public.gallery_photos to authenticated;
+
+drop policy if exists "Anyone can read gallery photos" on public.gallery_photos;
+create policy "Anyone can read gallery photos"
+on public.gallery_photos
+for select
+to anon, authenticated
+using (true);
+
+drop policy if exists "Owner can insert gallery photos" on public.gallery_photos;
+create policy "Owner can insert gallery photos"
+on public.gallery_photos
+for insert
+to authenticated
+with check ((auth.jwt() ->> 'email') = 'you@example.com');
+
+drop policy if exists "Owner can delete gallery photos" on public.gallery_photos;
+create policy "Owner can delete gallery photos"
+on public.gallery_photos
+for delete
+to authenticated
+using ((auth.jwt() ->> 'email') = 'you@example.com');
+
+-- Storage bucket: public trip photos (run once in the SQL editor).
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'trip-photos',
+  'trip-photos',
+  true,
+  10485760,
+  array['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+)
+on conflict (id) do update set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Anyone can view trip photos" on storage.objects;
+create policy "Anyone can view trip photos"
+on storage.objects
+for select
+to anon, authenticated
+using (bucket_id = 'trip-photos');
+
+drop policy if exists "Owner can upload trip photos" on storage.objects;
+create policy "Owner can upload trip photos"
+on storage.objects
+for insert
+to authenticated
+with check (
+  bucket_id = 'trip-photos'
+  and (auth.jwt() ->> 'email') = 'you@example.com'
+);
+
+drop policy if exists "Owner can update trip photos" on storage.objects;
+create policy "Owner can update trip photos"
+on storage.objects
+for update
+to authenticated
+using (
+  bucket_id = 'trip-photos'
+  and (auth.jwt() ->> 'email') = 'you@example.com'
+)
+with check (
+  bucket_id = 'trip-photos'
+  and (auth.jwt() ->> 'email') = 'you@example.com'
+);
+
+drop policy if exists "Owner can delete trip photos" on storage.objects;
+create policy "Owner can delete trip photos"
+on storage.objects
+for delete
+to authenticated
+using (
+  bucket_id = 'trip-photos'
+  and (auth.jwt() ->> 'email') = 'you@example.com'
+);
+
 -- Optional starter rows. Safe to run once; they are not tied to a unique route.
 insert into public.trips (title, route, distance_km, description, youtube_url)
 values

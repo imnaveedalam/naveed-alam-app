@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Gauge } from "lucide-react";
 import { DistanceCalculator } from "@/components/distance-calculator";
 import { createSupabaseClient, type TripRow } from "@/lib/supabase";
 
@@ -39,11 +40,14 @@ export default async function DistancePage() {
 
   return (
     <div className="page-shell">
-      <p className="kicker">The ride</p>
+      <p className="kicker inline-flex items-center gap-2">
+        <Gauge className="h-4 w-4" aria-hidden="true" />
+        The ride
+      </p>
       <h1 className="page-title">Distance calculator</h1>
       <p className="lede">
-        The total of every ride stays on screen. Choose one trip to see its own
-        distance.
+        The total of every motorcycle ride stays on screen. Choose one trip to
+        see its own distance.
       </p>
 
       {result.status === "missing" ? (

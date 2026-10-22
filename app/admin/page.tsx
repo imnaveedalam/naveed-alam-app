@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { AdminGalleryUpload } from "@/components/admin-gallery-upload";
 import { AdminLogin } from "@/components/admin-login";
 import { AdminSignOut } from "@/components/admin-sign-out";
 import { AdminTripForm } from "@/components/admin-trip-form";
@@ -9,7 +10,7 @@ import { AdminQuestions } from "./questions";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description: "Sign in to add trips and read submitted questions.",
+  description: "Sign in to add trips, upload gallery photos, and read questions.",
   robots: { index: false, follow: false },
 };
 
@@ -61,7 +62,7 @@ export default async function AdminPage() {
     return (
       <AdminIntro>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand-300">
-          Sign in to add a trip or read questions.
+          Sign in to add a trip, upload gallery photos, or read questions.
         </p>
         <AdminLogin />
       </AdminIntro>
@@ -82,9 +83,12 @@ export default async function AdminPage() {
 
       <div className="mt-10 grid items-start gap-8 lg:grid-cols-2">
         <AdminTripForm />
-        <Suspense fallback={<QuestionsLoading />}>
-          <AdminQuestions />
-        </Suspense>
+        <AdminGalleryUpload />
+        <div className="lg:col-span-2">
+          <Suspense fallback={<QuestionsLoading />}>
+            <AdminQuestions />
+          </Suspense>
+        </div>
       </div>
     </AdminIntro>
   );

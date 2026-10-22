@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Play, Route } from "lucide-react";
+import { Motorbike, Play, Route } from "lucide-react";
 import { createSupabaseClient, type TripRow } from "@/lib/supabase";
 
 export const metadata: Metadata = {
@@ -57,11 +57,14 @@ export default async function TripsPage() {
 
   return (
     <div className="page-shell">
-      <p className="kicker">The road</p>
+      <p className="kicker inline-flex items-center gap-2">
+        <Motorbike className="h-4 w-4" aria-hidden="true" />
+        The road
+      </p>
       <h1 className="page-title">Trips</h1>
       <p className="lede">
-        Rides from across Pakistan, with the route, the distance, and a YouTube
-        link for each.{" "}
+        Motorcycle rides across Pakistan — route, distance, and a YouTube link
+        for each.{" "}
         <Link href="/distance" className="text-link">
           Add up the distances
         </Link>
@@ -96,9 +99,10 @@ export default async function TripsPage() {
               <li key={trip.id} className="h-full">
                 <article className="panel panel-hover flex h-full flex-col p-6 sm:p-7">
                   <p className="chip">
+                    <Route className="h-3.5 w-3.5" aria-hidden="true" />
                     {trip.distance_km.toLocaleString("en-PK")} km
                   </p>
-                  <h2 className="mt-5 break-words text-2xl font-semibold tracking-tight text-sand-50">
+                  <h2 className="mt-5 break-words font-display text-2xl font-bold uppercase tracking-[0.03em] text-sand-50">
                     {trip.title}
                   </h2>
 

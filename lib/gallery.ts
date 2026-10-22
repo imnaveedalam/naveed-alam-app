@@ -1,3 +1,7 @@
+import { createSupabaseClient } from "@/lib/supabase";
+
+export const TRIP_PHOTOS_BUCKET = "trip-photos";
+
 export type GalleryPhoto = {
   id: string;
   src: string;
@@ -6,48 +10,83 @@ export type GalleryPhoto = {
   caption: string;
 };
 
-/** Placeholder frames. Replace `src` with real trip photos later. */
-export const galleryPhotos: GalleryPhoto[] = [
-  {
-    id: "makran",
-    src: "/gallery/makran.svg",
-    alt: "Placeholder of the Makran coast at sunset",
-    place: "Balochistan",
-    caption: "Makran coast, on the road toward Gwadar",
-  },
-  {
-    id: "karakoram",
-    src: "/gallery/karakoram.svg",
-    alt: "Placeholder of high peaks along the Karakoram Highway",
-    place: "Gilgit Baltistan",
-    caption: "Peaks above the Karakoram Highway",
-  },
-  {
-    id: "neelum",
-    src: "/gallery/neelum.svg",
-    alt: "Placeholder of a river running through Neelum Valley",
-    place: "Azad Kashmir",
-    caption: "The river through Neelum Valley",
-  },
-  {
-    id: "lowari",
-    src: "/gallery/lowari.svg",
-    alt: "Placeholder of the road over Lowari Pass",
-    place: "KPK",
-    caption: "The climb over Lowari Pass",
-  },
-  {
-    id: "punjab",
-    src: "/gallery/punjab.svg",
-    alt: "Placeholder of open farmland in Punjab",
-    place: "Punjab",
-    caption: "Long straight roads across Punjab",
-  },
-  {
-    id: "sindh",
-    src: "/gallery/sindh.svg",
-    alt: "Placeholder of the Indus running through Sindh",
-    place: "Sindh",
-    caption: "The Indus on the way through Sindh",
-  },
-];
+type GalleryPhotoRow = {
+  storage_path: string;
+  place: string;
+  caption: string;
+};
+
+export type GalleryLoadResult =
+  | { status: "ready"; photos: GalleryPhoto[] }
+  | { status: "missing" }
+  | { status: "error" };
+
+const imageExtensions = /\.(jpe?g|png|webp|gif)$/i;
+
+function publicPhotoUrl(storagePath: string, supabaseUrl: string) {
+  const base = supabaseUrl.replace(/\/$/, "");
+  return `${base}/storage/v1/object/public/${TRIP_PHOTOS_BUCKET}/${storagePath
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/")}`;
+}
+
+export async function loadGalleryPhotos(): Promise<GalleryLoadResult> {
+  const supabase = createSupabaseClient();
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+  if (!supabase || !supabaseUrl) {
+    return { status: "missing" };
+  }
+
+  const { data: files, error: listError } = await supabase.storage
+    .from(TRIP_PHOTOS_BUCKET)
+    .list("", {
+      limit: 100,
+      sortBy: { column: "created_at", order: "desc" },
+    });
+
+  if (listError) {
+    return { status: "error" };
+  }
+
+  const imageFiles = (files ?? []).filter(
+    (file) =>
+      Boolean(file.name) &&
+      !file.name.endsWith("/") &&
+      imageExtensions.test(file.name) &&
+      file.id,
+  );
+
+  if (imageFiles.length === 0) {
+    return { status: "ready", photos: [] };
+  }
+
+  const { data: rows } = await supabase
+    .from("gallery_photos")
+    .select("storage_path, place, caption");
+
+  const metaByPath = new Map(
+    ((rows as GalleryPhotoRow[] | null) ?? []).map((row) => [
+      row.storage_path,
+      row,
+    ]),
+  );
+
+  const photos: GalleryPhoto[] = imageFiles.map((file) => {
+    const meta = metaByPath.get(file.name);
+    const place = meta?.place?.trim() ?? "";
+    const caption = meta?.caption?.trim() ?? "";
+    const label = place || caption || "Trip photo";
+
+    return {
+      id: file.id ?? file.name,
+      src: publicPhotoUrl(file.name, supabaseUrl),
+      alt: label,
+      place,
+      caption,
+    };
+  });
+
+  return { status: "ready", photos };
+}

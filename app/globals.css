@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #07140f;
-  --foreground: #f6f1e7;
-  --ember-glow: rgba(240, 119, 26, 0.55);
+  --background: #050505;
+  --foreground: #f4f1ec;
+  --ember-glow: rgba(240, 90, 0, 0.55);
+  --road-line: rgba(244, 241, 236, 0.045);
 }
 
 html {
@@ -18,22 +19,34 @@ body {
   color: var(--foreground);
   background-color: var(--background);
   background-image:
-    radial-gradient(1200px 520px at 100% -8%, rgba(45, 106, 79, 0.42), transparent 60%),
-    radial-gradient(900px 460px at -14% 6%, rgba(240, 119, 26, 0.12), transparent 54%),
-    radial-gradient(640px 360px at 50% 110%, rgba(27, 67, 52, 0.35), transparent 55%),
-    linear-gradient(rgba(246, 241, 231, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 241, 231, 0.03) 1px, transparent 1px);
-  background-size: auto, auto, auto, 72px 72px, 72px 72px;
+    radial-gradient(1100px 520px at 100% -10%, rgba(198, 40, 40, 0.16), transparent 58%),
+    radial-gradient(900px 480px at -12% 4%, rgba(240, 90, 0, 0.16), transparent 52%),
+    radial-gradient(700px 380px at 50% 110%, rgba(255, 138, 43, 0.07), transparent 55%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 46px,
+      var(--road-line) 46px,
+      var(--road-line) 47px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 46px,
+      var(--road-line) 46px,
+      var(--road-line) 47px
+    );
+  background-size: auto, auto, auto, 94px 94px, 94px 94px;
   background-attachment: fixed;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  letter-spacing: 0.01em;
+  font-family: var(--font-sans), Segoe UI, sans-serif;
+  letter-spacing: 0.015em;
   line-height: 1.6;
   overflow-x: clip;
 }
 
 ::selection {
-  background: #f0771a;
-  color: #07140f;
+  background: #f05a00;
+  color: #050505;
 }
 
 @layer components {
@@ -42,15 +55,15 @@ body {
   }
 
   .kicker {
-    @apply text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-ember-400;
+    @apply text-[0.7rem] font-bold uppercase tracking-[0.28em] text-ember-400;
   }
 
   .page-title {
-    @apply mt-3 text-[2.125rem] font-semibold leading-[1.1] tracking-tight text-sand-50 sm:text-5xl;
+    @apply mt-3 font-display text-[2.35rem] font-bold uppercase leading-[0.95] tracking-[0.02em] text-sand-50 sm:text-5xl;
   }
 
   .section-title {
-    @apply mt-3 text-3xl font-semibold tracking-tight text-sand-50 sm:text-4xl;
+    @apply mt-3 font-display text-3xl font-bold uppercase tracking-[0.02em] text-sand-50 sm:text-4xl;
   }
 
   .lede {
@@ -58,46 +71,46 @@ body {
   }
 
   .panel {
-    @apply relative rounded-2xl border border-white/10 bg-forest-800/90 shadow-card backdrop-blur-[2px];
+    @apply relative rounded-xl border border-white/[0.08] bg-forest-800/95 shadow-card backdrop-blur-[2px];
   }
 
   .panel::before {
     content: "";
     pointer-events: none;
     position: absolute;
-    left: 1.25rem;
-    right: 1.25rem;
+    left: 0;
+    right: 0;
     top: 0;
     height: 2px;
-    border-radius: 999px;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 159, 67, 0.85) 42%,
-      rgba(240, 119, 26, 0.95) 68%,
+      rgba(226, 61, 45, 0.55) 18%,
+      rgba(240, 90, 0, 0.95) 48%,
+      rgba(255, 138, 43, 0.7) 72%,
       transparent
     );
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   .panel-hover {
-    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 ease-out hover:-translate-y-1.5 hover:border-ember-400/65 hover:bg-forest-800 hover:shadow-lift;
+    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 ease-out hover:-translate-y-1 hover:border-ember-400/55 hover:bg-forest-700 hover:shadow-lift;
   }
 
   .btn-ember {
-    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-ember-500 px-6 py-3 text-sm font-semibold tracking-wide text-forest-950 shadow-[0_12px_28px_-16px_rgba(240,119,26,0.95)] transition-[transform,background-color,box-shadow,color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-ember-400 hover:shadow-[0_18px_36px_-14px_rgba(240,119,26,1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto;
+    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-ember-500 px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.14em] text-forest-950 shadow-ember transition-[transform,background-color,box-shadow,color] duration-200 ease-out hover:-translate-y-0.5 hover:bg-ember-400 hover:shadow-lift focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-300 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto;
   }
 
   .btn-ghost {
-    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold tracking-wide text-sand-50 transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-ember-400/80 hover:bg-forest-800 hover:text-ember-300 hover:shadow-[0_14px_28px_-20px_rgba(240,119,26,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 active:translate-y-0 sm:w-auto;
+    @apply inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 bg-white/[0.03] px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.14em] text-sand-50 transition-[transform,background-color,border-color,color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:border-ember-400/80 hover:bg-forest-800 hover:text-ember-300 hover:shadow-[0_14px_28px_-20px_rgba(240,90,0,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 active:translate-y-0 sm:w-auto;
   }
 
   .text-link {
-    @apply font-medium text-ember-400 underline decoration-ember-500/40 underline-offset-4 transition-colors duration-200 hover:text-ember-300 hover:decoration-ember-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400;
+    @apply font-semibold text-ember-400 underline decoration-ember-500/40 underline-offset-4 transition-colors duration-200 hover:text-ember-300 hover:decoration-ember-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400;
   }
 
   .field {
-    @apply mt-2 w-full rounded-xl border border-white/10 bg-forest-950/90 px-4 py-3 text-base text-sand-50 outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-sand-400 focus:border-ember-400/80 focus:bg-forest-950 focus:ring-2 focus:ring-ember-500/80;
+    @apply mt-2 w-full rounded-lg border border-white/10 bg-forest-950/90 px-4 py-3 text-base text-sand-50 outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-sand-400 focus:border-ember-400/80 focus:bg-forest-950 focus:ring-2 focus:ring-ember-500/70;
   }
 
   .field[aria-invalid="true"] {
@@ -105,7 +118,11 @@ body {
   }
 
   .chip {
-    @apply inline-flex w-fit items-center rounded-full border border-ember-500/30 bg-ember-500/10 px-3 py-1 text-sm font-semibold tracking-wide text-ember-300;
+    @apply inline-flex w-fit items-center gap-1.5 rounded-md border border-ember-500/35 bg-ember-500/10 px-3 py-1 font-display text-xs font-bold uppercase tracking-[0.16em] text-ember-300;
+  }
+
+  .road-mark {
+    @apply pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-ember-500/70 to-transparent;
   }
 }
 
@@ -125,11 +142,16 @@ body {
   .btn-ghost:hover {
     transform: none;
   }
+
+  .animate-fade-up,
+  .animate-road-pulse {
+    animation: none !important;
+  }
 }
 
 .leaflet-container {
   z-index: 0;
-  background: #0c1f17;
+  background: #0c0c0c;
   font-family: inherit;
 }
 
@@ -139,11 +161,11 @@ body {
 
 .leaflet-control-attribution {
   max-width: calc(100% - 0.75rem);
-  background: rgba(12, 31, 23, 0.92) !important;
-  color: #cfc6b4 !important;
+  background: rgba(12, 12, 12, 0.92) !important;
+  color: #b8b0a4 !important;
   font-size: 11px !important;
 }
 
 .leaflet-control-attribution a {
-  color: #ffc085 !important;
+  color: #ffb36a !important;
 }
