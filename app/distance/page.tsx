@@ -4,9 +4,14 @@ import { DistanceCalculator } from "@/components/distance-calculator";
 import { createSupabaseClient, type TripRow } from "@/lib/supabase";
 
 export const metadata: Metadata = {
-  title: "Distance",
+  title: "Distance Calculator",
   description:
-    "See the distance of one motorcycle trip or the total distance of every trip.",
+    "Add up motorcycle trip distances across Pakistan — compare rides, estimate riding days, and see routes on the map.",
+  openGraph: {
+    title: "Distance Calculator · Naveed Alam",
+    description:
+      "Total motorcycle kilometres, compare selected trips, and view routes on an interactive map.",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -46,12 +51,12 @@ export default async function DistancePage() {
       </p>
       <h1 className="page-title">Distance calculator</h1>
       <p className="lede">
-        The total of every motorcycle ride stays on screen. Choose one trip to
-        see its own distance.
+        Select any set of trips to total the kilometres, estimate riding days,
+        and plot those routes on the map.
       </p>
 
       {result.status === "missing" ? (
-        <div role="status" className="panel mt-10 px-6 py-5">
+        <div role="status" className="panel mt-8 px-5 py-5 sm:mt-10 sm:px-6">
           <p className="kicker">Setup needed</p>
           <p className="mt-2 text-sm leading-relaxed text-sand-300">
             Add the Supabase URL and anon key to .env.local, then restart the
@@ -61,7 +66,10 @@ export default async function DistancePage() {
       ) : null}
 
       {result.status === "error" ? (
-        <div role="alert" className="panel mt-10 border-ember-500/50 px-6 py-5">
+        <div
+          role="alert"
+          className="panel mt-8 border-ember-500/50 px-5 py-5 sm:mt-10 sm:px-6"
+        >
           <p className="kicker">Could not load trips</p>
           <p className="mt-2 text-sm leading-relaxed text-sand-300">
             Trips could not be loaded, so the calculator has nothing to add up.
@@ -72,7 +80,7 @@ export default async function DistancePage() {
       {result.status === "ready" && result.trips.length === 0 ? (
         <div
           role="status"
-          className="panel mt-10 border-dashed border-sand-400/35 px-6 py-5"
+          className="panel mt-8 border-dashed border-sand-400/35 px-5 py-5 sm:mt-10 sm:px-6"
         >
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-sand-300">
             Empty table

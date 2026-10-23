@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   title: "Trips",
   description:
     "Motorcycle trips across Pakistan, with routes, distances, and YouTube links.",
+  openGraph: {
+    title: "Trips · Naveed Alam",
+    description:
+      "Motorcycle trips across Pakistan — routes, distances, and YouTube ride videos.",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -102,7 +107,7 @@ export default async function TripsPage() {
                     <Route className="h-3.5 w-3.5" aria-hidden="true" />
                     {trip.distance_km.toLocaleString("en-PK")} km
                   </p>
-                  <h2 className="mt-5 break-words font-display text-2xl font-bold uppercase tracking-[0.03em] text-sand-50">
+                  <h2 className="mt-5 break-words font-display text-[1.75rem] uppercase tracking-[0.05em] text-sand-50 sm:text-3xl">
                     {trip.title}
                   </h2>
 

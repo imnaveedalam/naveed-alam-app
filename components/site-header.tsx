@@ -43,17 +43,17 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-forest-950/92 shadow-soft backdrop-blur-xl">
-      <div className="h-1 bg-gradient-to-r from-flame-500 via-ember-500 to-ember-400" />
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-forest-950/94 shadow-soft backdrop-blur-xl">
+      <div className="h-1 bg-gradient-to-r from-flame-500 via-ember-500 to-ember-300" />
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
         <Link
           href="/"
-          className="flex min-w-0 shrink items-center gap-2.5 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400"
+          className="flex min-w-0 shrink items-center gap-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400"
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-ember-500 text-forest-950 shadow-ember transition duration-200 hover:bg-ember-400">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-ember-500 text-forest-950 shadow-ember transition duration-200 hover:bg-ember-400">
             <Motorbike className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="truncate font-display text-base font-bold uppercase tracking-[0.06em] text-sand-50">
+          <span className="truncate font-display text-xl tracking-[0.08em] text-sand-50 sm:text-[1.35rem]">
             Naveed Alam
           </span>
         </Link>
@@ -70,9 +70,9 @@ export function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`whitespace-nowrap rounded-md px-2 py-2 font-display text-[12px] font-semibold uppercase tracking-[0.12em] transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 xl:px-3 xl:text-[13px] ${
+                className={`whitespace-nowrap px-2.5 py-2 font-display text-[0.8rem] tracking-[0.16em] transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 xl:px-3 xl:text-[0.85rem] ${
                   active
-                    ? "bg-ember-500/15 text-ember-300 shadow-[inset_0_0_0_1px_rgba(255,138,43,0.45)]"
+                    ? "bg-ember-500/15 text-ember-300 shadow-[inset_0_-2px_0_0_rgba(232,93,4,0.9)]"
                     : "text-sand-300 hover:bg-white/5 hover:text-sand-50"
                 }`}
               >
@@ -84,7 +84,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-sand-50 transition duration-200 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 lg:hidden"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-transparent text-sand-50 transition duration-200 hover:border-white/10 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -104,16 +104,20 @@ export function SiteHeader() {
         hidden={!open}
         className="border-t border-white/10 bg-forest-900/98 backdrop-blur-md lg:hidden"
       >
-        <ul className="mx-auto flex max-w-6xl flex-col gap-0.5 px-3 py-3 sm:px-6">
-          {navLinks.map((link) => {
+        <ul className="mx-auto flex max-h-[min(70vh,28rem)] max-w-6xl flex-col gap-0.5 overflow-y-auto overscroll-contain px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-6">
+          {navLinks.map((link, index) => {
             const active = isActive(pathname, link.href);
 
             return (
-              <li key={link.href}>
+              <li
+                key={link.href}
+                className="reveal"
+                style={{ animationDelay: `${index * 40}ms` }}
+              >
                 <Link
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`block min-h-11 rounded-md px-3 py-3 font-display text-base font-semibold uppercase tracking-[0.1em] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 ${
+                  className={`block min-h-12 px-3 py-3.5 font-display text-lg tracking-[0.12em] transition-colors duration-200 active:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400 ${
                     active
                       ? "bg-ember-500/15 text-ember-300"
                       : "text-sand-100 hover:bg-white/5 hover:text-sand-50"

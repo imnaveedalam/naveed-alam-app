@@ -10,8 +10,16 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
+  title: {
+    absolute: "Naveed Alam · Motorcycle Adventure Across Pakistan",
+  },
   description:
     "Naveed Alam explores Pakistan on two wheels. In the last three years he has ridden through Balochistan, Sindh, Punjab, KPK, Azad Kashmir, and Gilgit Baltistan.",
+  openGraph: {
+    title: "Naveed Alam · Motorcycle Adventure Across Pakistan",
+    description:
+      "Three years of asphalt, dust, and high passes — Balochistan to Gilgit Baltistan on a motorcycle.",
+  },
 };
 
 const provinces = [
@@ -47,6 +55,12 @@ const provinces = [
   },
 ];
 
+const rideStats = [
+  { label: "Years on the road", value: "3" },
+  { label: "Provinces covered", value: "6" },
+  { label: "Mode of travel", value: "2 wheels" },
+] as const;
+
 export default function Home() {
   return (
     <div>
@@ -61,35 +75,36 @@ export default function Home() {
         />
         <div
           aria-hidden="true"
-          className="animate-road-pulse pointer-events-none absolute inset-x-0 top-[42%] h-px bg-gradient-to-r from-transparent via-ember-500/50 to-transparent sm:top-[48%]"
+          className="pointer-events-none absolute -left-24 top-1/3 hidden h-[140%] w-40 -rotate-[18deg] bg-gradient-to-b from-flame-500/20 via-ember-500/25 to-transparent blur-2xl lg:block"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-16 top-10 hidden h-64 w-64 rounded-full border border-ember-500/15 lg:block"
-        />
+          className="pointer-events-none absolute inset-x-0 bottom-[18%] h-1.5 origin-center scale-x-110"
+        >
+          <div className="road-stripe animate-stripe-drift mx-auto h-full max-w-4xl opacity-70" />
+        </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-4 top-28 hidden h-40 w-40 rounded-full border border-flame-500/20 lg:block"
+          className="animate-road-pulse pointer-events-none absolute inset-x-8 top-[38%] h-px bg-dash-glow sm:inset-x-16"
         />
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1.45fr)_minmax(17rem,0.7fr)] lg:gap-14 lg:py-24">
-          <div className="animate-fade-up max-w-2xl">
-            <p className="kicker inline-flex items-center gap-2">
+        <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pb-12 sm:pt-20 lg:pb-14 lg:pt-24">
+          <div className="animate-fade-up mx-auto max-w-3xl text-center lg:mx-0 lg:max-w-2xl lg:text-left">
+            <p className="kicker justify-center lg:justify-start">
               <Motorbike className="h-4 w-4" aria-hidden="true" />
-              Pakistan · Two wheels
+              Pakistan · Motorcycle adventure
             </p>
-            <h1 className="mt-5 font-display text-[2.9rem] font-bold uppercase leading-[0.92] tracking-[0.02em] text-sand-50 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 font-display text-[2.85rem] uppercase leading-[0.88] tracking-[0.05em] text-sand-50 sm:text-7xl lg:text-[5.5rem]">
               Naveed Alam
             </h1>
-            <p className="mt-5 max-w-xl font-display text-xl font-semibold uppercase leading-snug tracking-[0.04em] text-ember-400 sm:text-2xl">
+            <p className="mt-4 font-display text-[1.35rem] uppercase leading-none tracking-[0.08em] text-ember-400 sm:mt-5 sm:text-3xl">
               Exploring Pakistan on Two Wheels
             </p>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-sand-300 sm:text-lg">
-              A motorcycle traveler who has covered Balochistan, Sindh, Punjab,
-              KPK, Azad Kashmir, and Gilgit Baltistan in the last 3 years —
-              asphalt, dust, and the open road.
+            <p className="mx-auto mt-5 max-w-xl text-[0.95rem] leading-relaxed text-sand-300 sm:mt-6 sm:text-lg lg:mx-0">
+              Three years of asphalt, dust, and high passes — Balochistan to
+              Gilgit Baltistan on a motorcycle.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:items-center lg:justify-start">
               <Link href="/trips" className="btn-ember">
                 <Route className="h-4 w-4" aria-hidden="true" />
                 View Trips
@@ -99,55 +114,42 @@ export default function Home() {
               </Link>
             </div>
           </div>
+        </div>
 
-          <aside className="panel animate-fade-up overflow-hidden p-6 sm:p-8 [animation-delay:120ms]">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full border border-ember-400/20"
-            />
-            <div className="relative flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-md bg-ember-500/15 text-ember-400">
-                <Motorbike className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <p className="kicker">The ride so far</p>
-            </div>
-            <dl className="relative mt-7 space-y-5">
-              <div className="border-b border-white/10 pb-5">
-                <dt className="text-sm text-sand-300">On the road</dt>
-                <dd className="mt-1.5 font-display text-3xl font-bold uppercase tracking-wide text-sand-50">
-                  3 years
-                </dd>
+        <div className="relative border-y border-white/10 bg-forest-900/80 backdrop-blur-sm">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {rideStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col items-center px-6 py-6 text-center sm:py-7"
+              >
+                <p className="font-display text-4xl uppercase tracking-[0.06em] text-sand-50 sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 font-display text-[0.7rem] uppercase tracking-[0.24em] text-sand-400">
+                  {stat.label}
+                </p>
               </div>
-              <div className="border-b border-white/10 pb-5">
-                <dt className="text-sm text-sand-300">Places covered</dt>
-                <dd className="mt-1.5 font-display text-3xl font-bold uppercase tracking-wide text-sand-50">
-                  6
-                </dd>
-              </div>
-              <div>
-                <dt className="text-sm text-sand-300">How he travels</dt>
-                <dd className="mt-1.5 font-display text-3xl font-bold uppercase tracking-wide text-sand-50">
-                  Two wheels
-                </dd>
-              </div>
-            </dl>
-            <div className="road-mark" />
-          </aside>
+            ))}
+          </div>
         </div>
       </section>
 
       <section
-        className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20 lg:pb-24"
+        className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24"
         aria-labelledby="provinces-heading"
       >
         <div className="max-w-2xl">
-          <p className="kicker">The map</p>
+          <p className="kicker">
+            <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
+            The map
+          </p>
           <h2 id="provinces-heading" className="section-title">
             Provinces covered
           </h2>
           <p className="mt-4 text-base leading-relaxed text-sand-300">
-            Three years of riding, from the southern coast to the high
-            mountains.
+            From the southern coast to the high mountains — roads taken when
+            the season and the bike lined up.
           </p>
         </div>
 
@@ -156,16 +158,20 @@ export default function Home() {
             const Icon = province.icon;
 
             return (
-              <li key={province.name} className="panel panel-hover p-6 sm:p-7">
+              <li
+                key={province.name}
+                className="panel panel-hover reveal p-5 sm:p-7"
+                style={{ animationDelay: `${80 + index * 60}ms` }}
+              >
                 <div className="flex items-start justify-between gap-3">
-                  <span className="font-display text-sm font-bold tracking-[0.18em] text-ember-400">
+                  <span className="font-display text-sm tracking-[0.22em] text-ember-400">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-forest-950/60 text-ember-400">
+                  <span className="flex h-9 w-9 items-center justify-center border border-white/10 bg-forest-950/70 text-ember-400">
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
                 </div>
-                <h3 className="mt-4 font-display text-xl font-bold uppercase tracking-[0.04em] text-sand-50">
+                <h3 className="mt-4 font-display text-2xl uppercase tracking-[0.06em] text-sand-50">
                   {province.name}
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-sand-300">

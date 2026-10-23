@@ -4,7 +4,13 @@ import { QuestionForm } from "@/components/question-form";
 
 export const metadata: Metadata = {
   title: "Ask Question",
-  description: "Ask Naveed Alam a motorcycle travel question.",
+  description:
+    "Ask Naveed Alam a motorcycle travel question about routes, seasons, gear, or places across Pakistan.",
+  openGraph: {
+    title: "Ask Question · Naveed Alam",
+    description:
+      "Ask about motorcycle routes, seasons, gear, and places across Pakistan.",
+  },
 };
 
 const topics = [
@@ -55,7 +61,7 @@ export default function AskQuestionPage() {
                   <span className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-forest-950/60 text-ember-400">
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <p className="font-display text-sm font-bold uppercase tracking-[0.08em] text-sand-50">
+                  <p className="font-display text-base uppercase tracking-[0.12em] text-sand-50">
                     {topic.label}
                   </p>
                 </div>

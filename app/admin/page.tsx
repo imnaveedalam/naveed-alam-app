@@ -83,7 +83,9 @@ export default async function AdminPage() {
 
       <div className="mt-10 grid items-start gap-8 lg:grid-cols-2">
         <AdminTripForm />
-        <AdminGalleryUpload />
+        <div className="min-w-0">
+          <AdminGalleryUpload />
+        </div>
         <div className="lg:col-span-2">
           <Suspense fallback={<QuestionsLoading />}>
             <AdminQuestions />
