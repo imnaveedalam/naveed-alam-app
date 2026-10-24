@@ -7,6 +7,13 @@ export const navLinks = [
   { href: "/about", label: "About" },
 ] as const;
 
+/** Pakistan mobile 03042199261 → international wa.me format */
+export const whatsappNumber = "923042199261";
+
+export const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  "Assalamualaikum Naveed Alam — I have a motorcycle travel question.",
+)}`;
+
 export const socialLinks = [
   {
     label: "YouTube",
@@ -26,7 +33,7 @@ export const socialLinks = [
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/?text=Assalamualaikum%20Naveed%20Alam%20(%40inaveedalam)",
+    href: whatsappHref,
   },
 ] as const;
 

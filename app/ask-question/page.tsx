@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Backpack, CalendarDays, Map, Motorbike } from "lucide-react";
+import { Backpack, CalendarDays, Map, MessageCircle, Motorbike } from "lucide-react";
 import { QuestionForm } from "@/components/question-form";
+import { whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Ask Question",
@@ -72,6 +73,24 @@ export default function AskQuestionPage() {
             );
           })}
         </ul>
+
+        <div className="panel mt-8 p-5 sm:p-6">
+          <p className="font-display text-sm uppercase tracking-[0.16em] text-ember-400">
+            Prefer chat?
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-sand-300">
+            Send the same question on WhatsApp if that is easier.
+          </p>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost mt-5"
+          >
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            WhatsApp
+          </a>
+        </div>
       </div>
       <QuestionForm />
     </div>

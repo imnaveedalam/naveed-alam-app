@@ -4,10 +4,12 @@ import {
   Compass,
   Fuel,
   MapPinned,
+  MessageCircle,
   Mountain,
   Motorbike,
   Route,
 } from "lucide-react";
+import { whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -104,7 +106,7 @@ export default function Home() {
               Three years of asphalt, dust, and high passes — Balochistan to
               Gilgit Baltistan on a motorcycle.
             </p>
-            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:items-center lg:justify-start">
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center lg:justify-start">
               <Link href="/trips" className="btn-ember">
                 <Route className="h-4 w-4" aria-hidden="true" />
                 View Trips
@@ -112,6 +114,15 @@ export default function Home() {
               <Link href="/ask-question" className="btn-ghost">
                 Ask a Question
               </Link>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                WhatsApp
+              </a>
             </div>
           </div>
         </div>

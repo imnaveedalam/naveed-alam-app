@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { createSupabaseClient } from "@/lib/supabase";
+
 
 type QuestionInput = {
   name: string;
@@ -96,30 +96,36 @@ export function QuestionForm() {
       return;
     }
 
-    const supabase = createSupabaseClient();
-    if (!supabase) {
-      setFormError(
-        "Add the Supabase URL and anon key to .env.local, then restart the dev server.",
-      );
-      return;
-    }
-
     setSaving(true);
 
-    const { error } = await supabase.from("questions").insert({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      question: values.question.trim(),
-    });
+    try {
+      const response = await fetch("/api/questions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          question: values.question.trim(),
+        }),
+      });
 
-    setSaving(false);
+      const payload = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
 
-    if (error) {
+      if (!response.ok) {
+        setFormError(
+          payload?.error || "The question could not be saved. Please try again.",
+        );
+        return;
+      }
+
+      setSent(true);
+    } catch {
       setFormError("The question could not be saved. Please try again.");
-      return;
+    } finally {
+      setSaving(false);
     }
-
-    setSent(true);
   }
 
   if (sent) {

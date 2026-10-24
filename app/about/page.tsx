@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MapPinned, Motorbike, Route } from "lucide-react";
+import { MapPinned, MessageCircle, Motorbike, Route } from "lucide-react";
 import { loadGalleryAlbums } from "@/lib/gallery";
-import { socialHandle, socialLinks } from "@/lib/site";
+import { socialHandle, socialLinks, whatsappHref } from "@/lib/site";
 import { SocialIcon } from "@/components/social-icon";
 
 export const metadata: Metadata = {
@@ -107,13 +107,36 @@ export default async function AboutPage() {
         </ul>
       </section>
 
+      <section className="mt-14 max-w-2xl" aria-labelledby="contact-heading">
+        <p className="kicker inline-flex items-center gap-2">
+          <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+          Say hello
+        </p>
+        <h2 id="contact-heading" className="section-title">
+          WhatsApp
+        </h2>
+        <p className="mt-4 text-base leading-relaxed text-sand-300">
+          Message directly about a route, season, or gear question — same
+          traveler, same roads.
+        </p>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-ember mt-6"
+        >
+          <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          Chat on WhatsApp
+        </a>
+      </section>
+
       <section className="mt-14 max-w-2xl" aria-labelledby="follow-heading">
         <p className="kicker inline-flex items-center gap-2">
           <MapPinned className="h-3.5 w-3.5" aria-hidden="true" />
           Follow the road
         </p>
         <h2 id="follow-heading" className="section-title">
-          {socialHandle}
+          Social
         </h2>
         <p className="mt-4 text-base leading-relaxed text-sand-300">
           Ride clips, trip notes, and the next stretch of highway — on YouTube,
@@ -126,7 +149,7 @@ export default async function AboutPage() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${link.label} ${socialHandle}`}
+                aria-label={link.label}
                 className="inline-flex min-h-11 items-center gap-2 border border-white/10 bg-forest-900/80 px-4 py-2.5 text-sm font-semibold text-sand-100 transition duration-200 hover:border-ember-400 hover:text-ember-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-400"
               >
                 <SocialIcon name={link.label} />

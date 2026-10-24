@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Motorbike, Play, Route } from "lucide-react";
 import { createSupabaseClient, type TripRow } from "@/lib/supabase";
+import { youtubeHref } from "@/lib/youtube";
 
 export const metadata: Metadata = {
   title: "Trips",
@@ -16,23 +17,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
-
-function youtubeHref(value: string | null) {
-  if (!value) {
-    return null;
-  }
-
-  try {
-    const url = new URL(value);
-    if (url.protocol === "https:" || url.protocol === "http:") {
-      return url.toString();
-    }
-  } catch {
-    return null;
-  }
-
-  return null;
-}
 
 async function loadTrips(): Promise<
   | { status: "ready"; trips: TripRow[] }
@@ -68,8 +52,8 @@ export default async function TripsPage() {
       </p>
       <h1 className="page-title">Trips</h1>
       <p className="lede">
-        Motorcycle rides across Pakistan — route, distance, and a YouTube link
-        for each.{" "}
+        Motorcycle rides across Pakistan — open a trip for the full route map
+        and video.{" "}
         <Link href="/distance" className="text-link">
           Add up the distances
         </Link>
@@ -108,7 +92,12 @@ export default async function TripsPage() {
                     {trip.distance_km.toLocaleString("en-PK")} km
                   </p>
                   <h2 className="mt-5 break-words font-display text-[1.75rem] uppercase tracking-[0.05em] text-sand-50 sm:text-3xl">
-                    {trip.title}
+                    <Link
+                      href={`/trips/${trip.id}`}
+                      className="transition-colors duration-200 hover:text-ember-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400"
+                    >
+                      {trip.title}
+                    </Link>
                   </h2>
 
                   <p className="mt-4 flex items-start gap-2.5 text-sm leading-relaxed text-sand-100">
@@ -126,17 +115,22 @@ export default async function TripsPage() {
                     {trip.description}
                   </p>
 
-                  {videoUrl ? (
-                    <a
-                      href={videoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-ember mt-7"
-                    >
-                      <Play className="h-4 w-4" aria-hidden="true" />
-                      Watch on YouTube
-                    </a>
-                  ) : null}
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <Link href={`/trips/${trip.id}`} className="btn-ember">
+                      View trip
+                    </Link>
+                    {videoUrl ? (
+                      <a
+                        href={videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-ghost"
+                      >
+                        <Play className="h-4 w-4" aria-hidden="true" />
+                        YouTube
+                      </a>
+                    ) : null}
+                  </div>
                 </article>
               </li>
             );
